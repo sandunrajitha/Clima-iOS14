@@ -18,7 +18,8 @@ You'll be able to check the weather for the current location based on the GPS da
 
 ### Condition Codes
 
-```
+```swift
+
 switch conditionID {
         case 200...232:
             return "cloud.bolt"
@@ -36,7 +37,7 @@ switch conditionID {
             return "cloud.bolt"
         default:
             return "cloud"
-        }
+}
 ```
 
 >Created as a companion project to The App Brewery's Complete App Development Bootcamp

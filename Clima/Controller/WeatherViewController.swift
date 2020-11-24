@@ -8,17 +8,65 @@
 
 import UIKit
 
-class WeatherViewController: UIViewController {
+class WeatherViewController: UIViewController, UITextFieldDelegate{
 
     @IBOutlet weak var conditionImageView: UIImageView!
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var cityLabel: UILabel!
     
+    @IBOutlet weak var cityText: UITextField!
+    @IBOutlet weak var gpsButton: UIButton!
+    @IBOutlet weak var searchButton: UIButton!
+    
+    var city: String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        
+        cityText.delegate = self
+        /* set the  */
     }
 
-
+    @IBAction func gpsButtonPressed(_ sender: UIButton) {
+    }
+    
+    @IBAction func searchButtonPressed(_ sender: UIButton) {
+        cityText.endEditing(true)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        /*  Asks the delegate whether to process the
+            pressing of the Return button for the text field. */
+        
+        cityText.endEditing(true)
+        return true
+    }
+    
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        /* Asks the delegate whether to stop editing in the specified text field. */
+        
+        if textField.text != ""{
+            return true
+        } else {
+            textField.placeholder = "Enter City"
+            return false
+        }
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        /* Tells the delegate when editing stops for the specified text field,
+         and the reason it stopped. */
+        
+        city = cityText.text ?? "City not entered"
+        
+        while city.last?.isWhitespace == true {
+            city = String(city.dropLast() )
+        }
+        
+        print(city)
+        textField.text = ""
+    }
+    
+    
 }
 
