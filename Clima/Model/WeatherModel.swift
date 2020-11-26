@@ -15,7 +15,7 @@ struct WeatherModel {
     let country: String
     
     var city: String{
-        return String("\(name),\(country)")
+        return String("\(name), \(country)")
     }
     var temperatureString: String{ //calculated property
         return String(format: "%.1f", temp)

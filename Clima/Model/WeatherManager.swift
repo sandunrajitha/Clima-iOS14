@@ -13,11 +13,23 @@ protocol WeatherManagerDelegate {
     func didFailWithError(_ error: Error)
 }
 
+extension String {
+    func condenseWhitespace() -> String {
+        let components = self.components(separatedBy: .whitespacesAndNewlines)
+        return components.filter { !$0.isEmpty }.joined(separator: " ")
+    }
+}
+
 struct WeatherManager {
     var apiURLFormat = "https://api.openweathermap.org/data/2.5/weather?&appid=489dbf765768d9860727c766d9c3e350&units=metric"
     
     func fetchWeather(for cityName: String){
-        let resourceURL = "\(apiURLFormat)&q=\(cityName)"
+        
+        var city = cityName.condenseWhitespace()
+        city = String(city.replacingOccurrences(of: " ", with: "+"))
+        
+        let resourceURL = "\(apiURLFormat)&q=\(city)"
+        
         performRequest(with: resourceURL)
     }
     

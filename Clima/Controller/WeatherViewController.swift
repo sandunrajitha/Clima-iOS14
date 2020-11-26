@@ -63,7 +63,6 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
         while city.last?.isWhitespace == true {
             city = String(city.dropLast() )
         }
-        city = String(city.replacingOccurrences(of: " ", with: "+"))
         textField.text = ""
         print(city)
         weatherManager.fetchWeather(for: city)

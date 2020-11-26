@@ -16,6 +16,20 @@ You'll be able to check the weather for the current location based on the GPS da
 * Using Grand Central Dispatch to fetch the main thread.
 * Using Core Location to get the current location from the phone GPS.
 
+
+### Remove multiple consecutive white spaces from city name
+
+```swift
+
+extension String {
+    func condenseWhitespace() -> String {
+        let components = self.components(separatedBy: .whitespacesAndNewlines)
+        return components.filter { !$0.isEmpty }.joined(separator: " ")
+    }
+}
+
+```
+
 ### Condition Codes
 
 ```swift
