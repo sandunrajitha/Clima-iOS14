@@ -48,7 +48,8 @@ struct WeatherManager {
                         let weatherModel = WeatherModel(
                             name: weatherData.name,
                             id: weatherData.weather[0].id,
-                            temp: (weatherData.main.temp)
+                            temp: (weatherData.main.temp),
+                            country: weatherData.sys.country
                         )
                         
                         self.delegate?.didUpdateWeather(self, weatherModel)

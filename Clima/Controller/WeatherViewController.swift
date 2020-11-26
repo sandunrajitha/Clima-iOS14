@@ -63,7 +63,9 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
         while city.last?.isWhitespace == true {
             city = String(city.dropLast() )
         }
+        city = String(city.replacingOccurrences(of: " ", with: "+"))
         textField.text = ""
+        print(city)
         weatherManager.fetchWeather(for: city)
         
     }
@@ -72,7 +74,7 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
             DispatchQueue.main.async {
                 self.conditionImageView.image = UIImage(systemName: weatherModel.symbol)
                 self.temperatureLabel.text = weatherModel.temperatureString
-                self.cityLabel.text = weatherModel.name
+                self.cityLabel.text = weatherModel.city
             }
         print(weatherModel)
     }

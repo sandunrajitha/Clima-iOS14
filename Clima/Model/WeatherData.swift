@@ -12,6 +12,7 @@ struct WeatherData: Codable{
     var name: String
     var main: Main
     var weather: [Weather]
+    var sys: Sys
 }
 
 struct Main: Codable {
@@ -20,4 +21,8 @@ struct Main: Codable {
 
 struct Weather: Codable {
     var id: Int
+}
+
+struct Sys: Codable {
+    var country: String
 }
