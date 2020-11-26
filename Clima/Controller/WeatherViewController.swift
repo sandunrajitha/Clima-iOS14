@@ -8,8 +8,9 @@
 
 import UIKit
 
-class WeatherViewController: UIViewController, UITextFieldDelegate{
-
+class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManagerDelegate{
+    
+    
     @IBOutlet weak var conditionImageView: UIImageView!
     @IBOutlet weak var temperatureLabel: UILabel!
     @IBOutlet weak var cityLabel: UILabel!
@@ -19,14 +20,15 @@ class WeatherViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet weak var searchButton: UIButton!
     
     var city: String = ""
+    var weatherManager = WeatherManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        weatherManager.delegate = self
         cityText.delegate = self
-        /* set the  */
     }
-
+    
     @IBAction func gpsButtonPressed(_ sender: UIButton) {
     }
     
@@ -36,7 +38,7 @@ class WeatherViewController: UIViewController, UITextFieldDelegate{
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         /*  Asks the delegate whether to process the
-            pressing of the Return button for the text field. */
+         pressing of the Return button for the text field. */
         
         cityText.endEditing(true)
         return true
@@ -62,9 +64,17 @@ class WeatherViewController: UIViewController, UITextFieldDelegate{
         while city.last?.isWhitespace == true {
             city = String(city.dropLast() )
         }
-        
-        print(city)
         textField.text = ""
+        weatherManager.fetchWeather(city)
+        
+    }
+    
+    func didUpdateWeather(_ weatherManager: WeatherManager,_ weatherModel: WeatherModel) {
+//        conditionImageView.image = UIImage(systemName: weatherModel.symbol)
+//        temperatureLabel.text = String(weatherModel.temp)
+//        cityLabel.text = String(weatherModel.name)
+        
+        print(weatherModel)
     }
     
     
