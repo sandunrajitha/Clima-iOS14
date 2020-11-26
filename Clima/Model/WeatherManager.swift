@@ -10,19 +10,20 @@ import Foundation
 
 protocol WeatherManagerDelegate {
     func didUpdateWeather(_ weatherManager: WeatherManager,_ weatherModel: WeatherModel)
+    func didFailWithError(_ error: Error)
 }
 
 struct WeatherManager {
     var apiURLFormat = "https://api.openweathermap.org/data/2.5/weather?&appid=489dbf765768d9860727c766d9c3e350&units=metric"
     
-    func fetchWeather(_ cityName: String){
+    func fetchWeather(for cityName: String){
         let resourceURL = "\(apiURLFormat)&q=\(cityName)"
-        performRequest(urlString: resourceURL)
+        performRequest(with: resourceURL)
     }
     
     var delegate: WeatherManagerDelegate?
     
-    func performRequest(urlString: String){
+    func performRequest(with urlString: String){
         
         // create URL
         if let url = URL(string: urlString){
@@ -34,7 +35,7 @@ struct WeatherManager {
             let task = session.dataTask(with: url) { (data , response, error) in //trailing closure
                 
                 if error != nil {
-                    print(error!)
+                    self.delegate?.didFailWithError(error!)
                     return
                 }
                 
@@ -53,7 +54,7 @@ struct WeatherManager {
                         self.delegate?.didUpdateWeather(self, weatherModel)
                         
                     } catch {
-                        print(error)
+                        self.delegate?.didFailWithError(error)
                     }
                 }
             }
