@@ -16,6 +16,11 @@ You'll be able to check the weather for the current location based on the GPS da
 * Using Grand Central Dispatch to fetch the main thread.
 * Using Core Location to get the current location from the phone GPS.
 
+## Screens
+
+<img src="images/lightmode.png" width=250>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/darkmode.png" width=250>
+<br><br>
+<img src="images/lightmode.gif" width=250>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="images/darkmode.gif" width=250>
 
 ### Remove multiple consecutive white spaces from a String
 
