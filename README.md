@@ -17,7 +17,7 @@ You'll be able to check the weather for the current location based on the GPS da
 * Using Core Location to get the current location from the phone GPS.
 
 
-### Remove multiple consecutive white spaces from city name
+### Remove multiple consecutive white spaces from a String
 
 ```swift
 

@@ -32,11 +32,6 @@ class WeatherViewController: UIViewController{
         cityText.delegate = self
         locationManager.requestLocation()
     }
-    
-    @IBAction func gpsButtonPressed(_ sender: UIButton) {
-        locationManager.requestLocation()
-    }
-    
 }
 
 
@@ -103,12 +98,21 @@ extension WeatherViewController: WeatherManagerDelegate{
 // MARK: - LocationManagerDelegate
 
 extension WeatherViewController: CLLocationManagerDelegate{
+    
+    @IBAction func gpsButtonPressed(_ sender: UIButton) {
+        locationManager.requestLocation()
+    }
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        print(locations[0].coordinate)
-        weatherManager.fetchWeather(with: locations[0].coordinate)
+        if let location = locations.last{
+            locationManager.stopUpdatingLocation()
+            print(location.coordinate)
+            weatherManager.fetchWeather(with: location.coordinate)
+        }
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
     }
+
 }
