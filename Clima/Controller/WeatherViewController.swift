@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreLocation
 
 class WeatherViewController: UIViewController{
     
@@ -20,15 +21,20 @@ class WeatherViewController: UIViewController{
     
     var city: String = ""
     var weatherManager = WeatherManager()
+    var locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        locationManager.delegate = self
+        locationManager.requestWhenInUseAuthorization()
         weatherManager.delegate = self
         cityText.delegate = self
+        locationManager.requestLocation()
     }
     
     @IBAction func gpsButtonPressed(_ sender: UIButton) {
+        locationManager.requestLocation()
     }
     
 }
@@ -90,6 +96,19 @@ extension WeatherViewController: WeatherManagerDelegate{
     }
     
     func didFailWithError(_ error: Error) {
+        print(error)
+    }
+}
+
+// MARK: - LocationManagerDelegate
+
+extension WeatherViewController: CLLocationManagerDelegate{
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print(locations[0].coordinate)
+        weatherManager.fetchWeather(with: locations[0].coordinate)
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error)
     }
 }
