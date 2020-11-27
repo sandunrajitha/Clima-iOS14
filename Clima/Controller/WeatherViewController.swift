@@ -8,7 +8,7 @@
 
 import UIKit
 
-class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManagerDelegate{
+class WeatherViewController: UIViewController{
     
     @IBOutlet weak var conditionImageView: UIImageView!
     @IBOutlet weak var temperatureLabel: UILabel!
@@ -30,6 +30,13 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
     
     @IBAction func gpsButtonPressed(_ sender: UIButton) {
     }
+    
+}
+
+
+// MARK: - UITextFieldDelegate
+
+extension WeatherViewController: UITextFieldDelegate{
     
     @IBAction func searchButtonPressed(_ sender: UIButton) {
         cityText.endEditing(true)
@@ -68,7 +75,11 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
         weatherManager.fetchWeather(for: city)
         
     }
-    
+}
+
+// MARK: - WeatherManagerDelegate
+
+extension WeatherViewController: WeatherManagerDelegate{
     func didUpdateWeather(_ weatherManager: WeatherManager,_ weatherModel: WeatherModel) {
             DispatchQueue.main.async {
                 self.conditionImageView.image = UIImage(systemName: weatherModel.symbol)
@@ -81,6 +92,4 @@ class WeatherViewController: UIViewController, UITextFieldDelegate, WeatherManag
     func didFailWithError(_ error: Error) {
         print(error)
     }
-    
 }
-

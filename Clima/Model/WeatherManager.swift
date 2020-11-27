@@ -16,7 +16,12 @@ protocol WeatherManagerDelegate {
 extension String {
     func condenseWhitespace() -> String {
         let components = self.components(separatedBy: .whitespacesAndNewlines)
+        /* Returns an array containing substrings from the string that have been divided by characters in the given set. */
         return components.filter { !$0.isEmpty }.joined(separator: " ")
+        /* Returns a new string by concatenating the elements of the sequence, adding the given separator between each element. */
+        
+        /* func filter(_ isIncluded: (Character) throws -> Bool) rethrows -> String
+         Returns a new collection of the same type containing, in order, the elements of the original collection that satisfy the given predicate. in this case it returns non empty elements of the "components" */
     }
 }
 
